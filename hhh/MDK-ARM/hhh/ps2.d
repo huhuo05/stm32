@@ -1,5 +1,5 @@
-hhh\ps2.o: ..\BSP\ps2.c
-hhh\ps2.o: ..\BSP\ps2.h
+hhh\ps2.o: ..\Application\ps2.c
+hhh\ps2.o: ..\Application\ps2.h
 hhh\ps2.o: ../Core/Inc/main.h
 hhh\ps2.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 hhh\ps2.o: ../Core/Inc/stm32f4xx_hal_conf.h

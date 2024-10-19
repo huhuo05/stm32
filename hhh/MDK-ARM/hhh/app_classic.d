@@ -45,6 +45,6 @@ hhh\app_classic.o: ../Core/Inc/i2c.h
 hhh\app_classic.o: ../Core/Inc/spi.h
 hhh\app_classic.o: ../Core/Inc/usart.h
 hhh\app_classic.o: ../Math_Algorithm/pid.h
-hhh\app_classic.o: ../BSP/ps2.h
+hhh\app_classic.o: ../Application/ps2.h
 hhh\app_classic.o: ../Math_Algorithm/math1.h
 hhh\app_classic.o: ../Application/APP_classic.h

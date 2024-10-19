@@ -1,8 +1,9 @@
 #include "bsp_gpio.h"
    
-void classic_init(void)
+void MG513_Motor_gpio_init(void)
 {
     // ³õÊ¼»¯Òý½Å
+	//A
     HAL_GPIO_WritePin(GPIOC, A1_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOE, A2_Pin, GPIO_PIN_RESET);
     // B

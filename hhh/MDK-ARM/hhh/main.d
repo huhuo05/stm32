@@ -44,7 +44,7 @@ hhh\main.o: ../Math_Algorithm/pid.h
 hhh\main.o: ../Math_Algorithm/struct_typedef.h
 hhh\main.o: ../CALLBACK/callback.h
 hhh\main.o: ../Math_Algorithm/pid.h
-hhh\main.o: ../BSP/ps2.h
+hhh\main.o: ../Application/ps2.h
 hhh\main.o: ../Math_Algorithm/math1.h
 hhh\main.o: ../CALLBACK/callback.h
 hhh\main.o: ../Application/APP_classic.h

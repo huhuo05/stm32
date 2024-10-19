@@ -1,6 +1,6 @@
 #include "bsp_tim.h"
 
-void TIM_INIT(void)
+void MG513_Motor_pwm_init(void)
 {
 	// pwmÍ¨µÀ¿ªÆô
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); // A
