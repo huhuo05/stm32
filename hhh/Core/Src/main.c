@@ -18,7 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "can.h"
 #include "dma.h"
+#include "i2c.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -103,6 +105,9 @@ int main(void)
   MX_TIM11_Init();
   MX_SPI1_Init();
   MX_USART2_UART_Init();
+  MX_CAN1_Init();
+  MX_CAN2_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
   PS2_SetInit();
   /* USER CODE END 2 */
@@ -142,7 +147,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 4;
   RCC_OscInitStruct.PLL.PLLN = 168;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
