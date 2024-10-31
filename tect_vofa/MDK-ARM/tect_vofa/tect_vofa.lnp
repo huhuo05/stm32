@@ -30,6 +30,7 @@
 "tect_vofa\bsp_usart.o"
 "tect_vofa\motor.o"
 "tect_vofa\pid.o"
+"tect_vofa\callback.o"
 --library_type=microlib --strict --scatter "tect_vofa\tect_vofa.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

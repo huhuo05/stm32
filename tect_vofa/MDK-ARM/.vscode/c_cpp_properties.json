@@ -10,6 +10,7 @@
                 "e:\\stm32project\\tect_vofa\\Drivers\\CMSIS\\Include",
                 "e:\\stm32project\\tect_vofa\\user",
                 "e:\\stm32project\\tect_vofa\\PID",
+                "e:\\stm32project\\tect_vofa\\Callback",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include\\arm_linux",
                 "D:\\Keil\\Keil_v5\\ARM\\ARMCC\\include\\arm_linux_compat",

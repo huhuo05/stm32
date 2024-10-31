@@ -39,3 +39,7 @@ tect_vofa\main.o: ../Core/Inc/gpio.h
 tect_vofa\main.o: ../user/vofa.h
 tect_vofa\main.o: ../user/ps2.h
 tect_vofa\main.o: ../user/bsp_usart.h
+tect_vofa\main.o: ../user/motor.h
+tect_vofa\main.o: ../PID/pid.h
+tect_vofa\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+tect_vofa\main.o: ../PID/struct_typedef.h

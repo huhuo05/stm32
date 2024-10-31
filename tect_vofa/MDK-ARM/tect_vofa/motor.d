@@ -35,6 +35,6 @@ tect_vofa\motor.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 tect_vofa\motor.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
 tect_vofa\motor.o: ../Core/Inc/gpio.h
 tect_vofa\motor.o: ../Core/Inc/tim.h
-tect_vofa\motor.o: ..\PID\pid.h
+tect_vofa\motor.o: ../PID/pid.h
 tect_vofa\motor.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-tect_vofa\motor.o: ..\PID\struct_typedef.h
+tect_vofa\motor.o: ../PID/struct_typedef.h

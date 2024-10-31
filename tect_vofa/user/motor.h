@@ -14,9 +14,13 @@ enum MOTOR_MODE
 
 typedef struct motordata
 {
-    pids *pid;
+    pids *pid1;
+    pids *pid2;
     uint32_t V[4];
     uint8_t motor_mode;
 } Motor;
+
+void motor_init(void);
+void motor_pid_init(Motor *motor, pids *pid, uint8_t motor_mode, uint8_t pid_mode, fp32 KP, fp32 KI, fp32 KD, fp32 maxOut, fp32 maxIout);
 
 #endif
