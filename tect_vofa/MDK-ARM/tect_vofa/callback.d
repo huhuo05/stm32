@@ -34,6 +34,7 @@ tect_vofa\callback.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h
 tect_vofa\callback.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 tect_vofa\callback.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 tect_vofa\callback.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+tect_vofa\callback.o: ../Core/Inc/usart.h
 tect_vofa\callback.o: ../user/motor.h
 tect_vofa\callback.o: ../Core/Inc/gpio.h
 tect_vofa\callback.o: ../PID/pid.h

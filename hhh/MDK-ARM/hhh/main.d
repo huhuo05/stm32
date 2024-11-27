@@ -23,6 +23,7 @@ hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
@@ -34,6 +35,7 @@ hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 hhh\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+hhh\main.o: ../Core/Inc/can.h
 hhh\main.o: ../Core/Inc/dma.h
 hhh\main.o: ../Core/Inc/i2c.h
 hhh\main.o: ../Core/Inc/spi.h
@@ -45,7 +47,7 @@ hhh\main.o: ../Math_Algorithm/struct_typedef.h
 hhh\main.o: ../CALLBACK/callback.h
 hhh\main.o: ../Math_Algorithm/pid.h
 hhh\main.o: ../Application/ps2.h
-hhh\main.o: ../Math_Algorithm/math1.h
+hhh\main.o: ../Math_Algorithm/math.h
 hhh\main.o: ../CALLBACK/callback.h
 hhh\main.o: ../Application/APP_classic.h
 hhh\main.o: ../Math_Algorithm/pid.h

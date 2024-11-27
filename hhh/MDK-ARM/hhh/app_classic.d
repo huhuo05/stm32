@@ -24,6 +24,7 @@ hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
 hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 hhh\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
@@ -39,12 +40,12 @@ hhh\app_classic.o: ../Core/Inc/tim.h
 hhh\app_classic.o: ../Core/Inc/gpio.h
 hhh\app_classic.o: ../Math_Algorithm/pid.h
 hhh\app_classic.o: ../Math_Algorithm/struct_typedef.h
-hhh\app_classic.o: ../Math_Algorithm/math1.h
+hhh\app_classic.o: ../Math_Algorithm/math.h
 hhh\app_classic.o: ../CALLBACK/callback.h
 hhh\app_classic.o: ../Core/Inc/i2c.h
 hhh\app_classic.o: ../Core/Inc/spi.h
 hhh\app_classic.o: ../Core/Inc/usart.h
 hhh\app_classic.o: ../Math_Algorithm/pid.h
 hhh\app_classic.o: ../Application/ps2.h
-hhh\app_classic.o: ../Math_Algorithm/math1.h
+hhh\app_classic.o: ../Math_Algorithm/math.h
 hhh\app_classic.o: ../Application/APP_classic.h

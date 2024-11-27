@@ -21,6 +21,7 @@ typedef struct motordata
 } Motor;
 
 void motor_init(void);
-void motor_pid_init(Motor *motor, pids *pid, uint8_t motor_mode, uint8_t pid_mode, fp32 KP, fp32 KI, fp32 KD, fp32 maxOut, fp32 maxIout);
+void motor_pid_init(Motor *motor,pids *PID, uint8_t motor_mode, uint8_t pid_mode,fp32 goal, fp32 KP, fp32 KI, fp32 KD, fp32 maxOut, fp32 maxIout);
+void motor_speed_get(Motor *motor);
 
 #endif
