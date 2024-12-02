@@ -1131,14 +1131,19 @@
           <GroupName>BSP</GroupName>
           <Files>
             <File>
-              <FileName>bsp_tim.c</FileName>
+              <FileName>motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\BSP\bsp_tim.c</FilePath>
+              <FilePath>..\BSP\motor.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_gpio.c</FileName>
+              <FileName>oled.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\BSP\bsp_gpio.c</FilePath>
+              <FilePath>..\BSP\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>ps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\ps2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1164,11 +1169,6 @@
               <FileName>APP_remote_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Application\APP_remote_control.c</FilePath>
-            </File>
-            <File>
-              <FileName>ps2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Application\ps2.c</FilePath>
             </File>
           </Files>
         </Group>

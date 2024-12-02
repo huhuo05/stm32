@@ -22,17 +22,16 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 E:\stm32project\hhh\MDK-ARM\hhh.uvprojx
-Project File Date:  11/27/2024
+Project File Date:  12/02/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'hhh'
-compiling bsp_gpio.c...
-linking...
-hhh\hhh.axf: Error: L6200E: Symbol HAL_TIM_PeriodElapsedCallback multiply defined (by callback.o and main.o).
-Not enough information to list image symbols.
-Not enough information to list load addresses in the image map.
-Finished: 2 information, 0 warning and 1 error messages.
+compiling main.c...
+../Core/Src/main.c(188): error:  #29: expected an expression
+  		MG513_encodervalue_get(,&htim2);
+../Core/Src/main.c: 0 warnings, 1 error
+compiling motor.c...
 "hhh\hhh.axf" - 1 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>

@@ -1,6 +1,6 @@
 hhh\app_remote_control.o: ..\Application\APP_remote_control.c
 hhh\app_remote_control.o: ..\Application\APP_remote_control.h
-hhh\app_remote_control.o: ..\Application\ps2.h
+hhh\app_remote_control.o: ../BSP/ps2.h
 hhh\app_remote_control.o: ../Core/Inc/main.h
 hhh\app_remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 hhh\app_remote_control.o: ../Core/Inc/stm32f4xx_hal_conf.h

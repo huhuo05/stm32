@@ -44,7 +44,7 @@ hhh\math.o: ../Core/Inc/spi.h
 hhh\math.o: ../Core/Inc/usart.h
 hhh\math.o: ../Math_Algorithm/pid.h
 hhh\math.o: ../Math_Algorithm/struct_typedef.h
-hhh\math.o: ../Application/ps2.h
+hhh\math.o: ../BSP/ps2.h
 hhh\math.o: ../Math_Algorithm/math.h
 hhh\math.o: ../Application/APP_classic.h
 hhh\math.o: ../Math_Algorithm/pid.h

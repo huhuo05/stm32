@@ -796,22 +796,40 @@ Section Cross References
     stm32f4xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout) refers to stm32f4xx_hal_uart.o(i.UART_EndRxTransfer) for UART_EndRxTransfer
     system_stm32f4xx.o(i.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.data) for .data
     system_stm32f4xx.o(i.SystemCoreClockUpdate) refers to system_stm32f4xx.o(.constdata) for .constdata
-    bsp_tim.o(i.MG513_Motor_pwm_init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Start) for HAL_TIM_PWM_Start
-    bsp_tim.o(i.MG513_Motor_pwm_init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Start) for HAL_TIM_Encoder_Start
-    bsp_tim.o(i.MG513_Motor_pwm_init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_IT) for HAL_TIM_Base_Start_IT
-    bsp_tim.o(i.MG513_Motor_pwm_init) refers to tim.o(.bss) for htim1
-    bsp_gpio.o(i.MG513_Motor_stop) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to pid.o(i.PID_calc) for PID_calc
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to tim.o(.bss) for htim6
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to callback.o(.bss) for .bss
-    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to ps2.o(i.PS2_Receive) for PS2_Receive
-    app_remote_control.o(i.PS2_control) refers to ps2.o(i.PS2_SetInit) for PS2_SetInit
-    app_remote_control.o(i.PS2_control) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
-    app_remote_control.o(i.PS2_control) refers to ps2.o(i.PS2_Receive) for PS2_Receive
+    motor.o(i.MG513_Motor_pwm_init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_Start) for HAL_TIM_PWM_Start
+    motor.o(i.MG513_Motor_pwm_init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Encoder_Start) for HAL_TIM_Encoder_Start
+    motor.o(i.MG513_Motor_pwm_init) refers to stm32f4xx_hal_tim.o(i.HAL_TIM_Base_Start_IT) for HAL_TIM_Base_Start_IT
+    motor.o(i.MG513_Motor_pwm_init) refers to tim.o(.bss) for htim1
+    motor.o(i.MG513_Motor_stop) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_back_A) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_back_B) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_back_C) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_back_D) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_encodervalue_get) refers to math.o(i.Mean_filtering) for Mean_filtering
+    motor.o(i.MG513_forword_A) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_forword_B) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_forword_C) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    motor.o(i.MG513_forword_D) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    oled.o(i.OLED_Clear) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_Display_Off) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_Display_On) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_DrawBMP) refers to oled.o(i.OLED_Set_Pos) for OLED_Set_Pos
+    oled.o(i.OLED_DrawBMP) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_Init) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    oled.o(i.OLED_Init) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_Init) refers to oled.o(i.OLED_Clear) for OLED_Clear
+    oled.o(i.OLED_Init) refers to oled.o(i.OLED_Set_Pos) for OLED_Set_Pos
+    oled.o(i.OLED_Set_Pos) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_ShowCHinese) refers to oled.o(i.OLED_Set_Pos) for OLED_Set_Pos
+    oled.o(i.OLED_ShowCHinese) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_ShowCHinese) refers to oled.o(.data) for .data
+    oled.o(i.OLED_ShowChar) refers to oled.o(i.OLED_Set_Pos) for OLED_Set_Pos
+    oled.o(i.OLED_ShowChar) refers to oled.o(i.OLED_WR_Byte) for OLED_WR_Byte
+    oled.o(i.OLED_ShowChar) refers to oled.o(.constdata) for .constdata
+    oled.o(i.OLED_ShowNum) refers to oled.o(i.oled_pow) for oled_pow
+    oled.o(i.OLED_ShowNum) refers to oled.o(i.OLED_ShowChar) for OLED_ShowChar
+    oled.o(i.OLED_ShowString) refers to oled.o(i.OLED_ShowChar) for OLED_ShowChar
+    oled.o(i.OLED_WR_Byte) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
     ps2.o(i.PS2_AnologData) refers to ps2.o(.bss) for .bss
     ps2.o(i.PS2_ClearData) refers to ps2.o(.bss) for .bss
     ps2.o(i.PS2_Cmd) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
@@ -856,12 +874,43 @@ Section Cross References
     ps2.o(i.PS2_VibrationMode) refers to stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
     ps2.o(i.PS2_VibrationMode) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
     ps2.o(i.PS2_VibrationMode) refers to ps2.o(i.PS2_Cmd) for PS2_Cmd
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to pid.o(i.PID_calc) for PID_calc
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to ps2.o(i.PS2_Receive) for PS2_Receive
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to tim.o(.bss) for htim7
+    callback.o(i.HAL_TIM_PeriodElapsedCallback) refers to callback.o(.bss) for .bss
+    app_classic.o(i.Action_solution) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    app_classic.o(i.Action_solution) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
+    app_classic.o(i.Action_solution) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    app_classic.o(i.Action_solution) refers to daddsub_clz.o(x$fpl$dadd) for __aeabi_dadd
+    app_classic.o(i.MG513_pwm_set) refers to tim.o(.bss) for htim1
+    app_classic.o(i.classis_calculate) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    app_classic.o(i.classis_calculate) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    app_classic.o(i.classis_calculate) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
+    app_classic.o(i.classis_calculate) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    app_classic.o(i.classis_calculate) refers to pid.o(i.PID_calc) for PID_calc
+    app_remote_control.o(i.PS2_control) refers to ps2.o(i.PS2_SetInit) for PS2_SetInit
+    app_remote_control.o(i.PS2_control) refers to stm32f4xx_hal.o(i.HAL_Delay) for HAL_Delay
+    app_remote_control.o(i.PS2_control) refers to ps2.o(i.PS2_Receive) for PS2_Receive
     pid.o(i.pidINIT) refers to pid.o(i.PID_init) for PID_init
     pid.o(i.pidINIT) refers to pid.o(i.PID_clear) for PID_clear
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
     d2f.o(x$fpl$d2f) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
     d2f.o(x$fpl$d2f) refers to fretinf.o(x$fpl$fretinf) for __fpl_fretinf
     d2f.o(x$fpl$d2f) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    daddsub_clz.o(x$fpl$dadd) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    daddsub_clz.o(x$fpl$dadd) refers to daddsub_clz.o(x$fpl$dsub) for _dsub1
+    daddsub_clz.o(x$fpl$dadd) refers to dretinf.o(x$fpl$dretinf) for __fpl_dretinf
+    daddsub_clz.o(x$fpl$dadd) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    daddsub_clz.o(x$fpl$drsb) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    daddsub_clz.o(x$fpl$drsb) refers to daddsub_clz.o(x$fpl$dadd) for _dadd1
+    daddsub_clz.o(x$fpl$drsb) refers to daddsub_clz.o(x$fpl$dsub) for _dsub1
+    daddsub_clz.o(x$fpl$dsub) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    daddsub_clz.o(x$fpl$dsub) refers to daddsub_clz.o(x$fpl$dadd) for _dadd1
+    daddsub_clz.o(x$fpl$dsub) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
     ddiv.o(x$fpl$drdiv) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
     ddiv.o(x$fpl$drdiv) refers to ddiv.o(x$fpl$ddiv) for ddiv_entry
     ddiv.o(x$fpl$ddiv) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
