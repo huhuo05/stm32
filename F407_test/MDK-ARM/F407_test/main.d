@@ -32,3 +32,5 @@ f407_test\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 f407_test\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 f407_test\main.o: ../Core/Inc/tim.h
 f407_test\main.o: ../Core/Inc/gpio.h
+f407_test\main.o: ../user/oled.h
+f407_test\main.o: ../user/math.h

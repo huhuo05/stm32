@@ -62,10 +62,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-MG513 A;
-MG513 B;
-MG513 C;
-MG513 D;
+MG513 A_motor;
+MG513 B_motor;
+MG513 C_motor;
+MG513 D_motor;
 /* USER CODE END 0 */
 
 /**
@@ -188,10 +188,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
   if (htim == &htim6)
   {
-    MG513_encodervalue_get(A.cout, &htim2);
-    MG513_encodervalue_get(B.cout, &htim3);
-    MG513_encodervalue_get(C.cout, &htim4);
-    MG513_encodervalue_get(D.cout, &htim5);
+    MG513_encodervalue_get(A_motor.cout, &htim2);
+    MG513_encodervalue_get(B_motor.cout, &htim3);
+    MG513_encodervalue_get(C_motor.cout, &htim4);
+    MG513_encodervalue_get(D_motor.cout, &htim5);
   }
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM10)

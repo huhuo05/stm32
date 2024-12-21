@@ -1,7 +1,7 @@
 Dependencies for Project 'hhh', Target 'hhh': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f407xx.s)(0x6747036B)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_hhh-ID:\Keil\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-ID:\Keil\Pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 539" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o hhh\startup_stm32f407xx.o --depend hhh\startup_stm32f407xx.d)
-F (../Core/Src/main.c)(0x674DA60F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../CALLBACK -I ../Application -I ../Task -I ../Math_Algorithm-I.\RTE\_hhh-ID:\Keil\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-ID:\Keil\Pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o hhh\main.o --omf_browse hhh\main.crf --depend hhh\main.d)
+F (../Core/Src/main.c)(0x67500CCF)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../CALLBACK -I ../Application -I ../Task -I ../Math_Algorithm-I.\RTE\_hhh-ID:\Keil\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-ID:\Keil\Pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o hhh\main.o --omf_browse hhh\main.crf --depend hhh\main.d)
 I (../Core/Inc/main.h)(0x67124BEC)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x65FEF083)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6716567A)
@@ -50,7 +50,7 @@ I (../CALLBACK/callback.h)(0x674DA58D)
 I (../BSP/ps2.h)(0x66C44EBC)
 I (../Math_Algorithm/math.h)(0x674DA087)
 I (../Application/APP_classic.h)(0x674DA3C5)
-I (../BSP/motor.h)(0x674DA75E)
+I (../BSP/motor.h)(0x67500095)
 F (../Core/Src/gpio.c)(0x67470367)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../CALLBACK -I ../Application -I ../Task -I ../Math_Algorithm-I.\RTE\_hhh-ID:\Keil\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-ID:\Keil\Pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o hhh\gpio.o --omf_browse hhh\gpio.crf --depend hhh\gpio.d)
 I (../Core/Inc/gpio.h)(0x669F49D4)
 I (../Core/Inc/main.h)(0x67124BEC)
@@ -1153,8 +1153,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x65FEF083)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x65FEF083)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x65FEF083)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x65FEF083)
-F (..\BSP\motor.c)(0x674DA7AB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../CALLBACK -I ../Application -I ../Task -I ../Math_Algorithm-I.\RTE\_hhh-ID:\Keil\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-ID:\Keil\Pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o hhh\motor.o --omf_browse hhh\motor.crf --depend hhh\motor.d)
-I (..\BSP\motor.h)(0x674DA75E)
+F (..\BSP\motor.c)(0x674DAB06)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../CALLBACK -I ../Application -I ../Task -I ../Math_Algorithm-I.\RTE\_hhh-ID:\Keil\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-ID:\Keil\Pack\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o hhh\motor.o --omf_browse hhh\motor.crf --depend hhh\motor.d)
+I (..\BSP\motor.h)(0x67500095)
 I (../Core/Inc/main.h)(0x67124BEC)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x65FEF083)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6716567A)

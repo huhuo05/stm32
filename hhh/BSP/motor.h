@@ -18,8 +18,8 @@ enum MOTOR_MODE
 typedef struct motorDate
 {
 	uint8_t motor_mode;//电机模式：速度环/位置环
-	pids *pid1;//速度环
-    pids *pid2;//位置环
+	pids pid1;//速度环
+    pids pid2;//位置环
     uint32_t V[4];//电机速度
     float cout[11];
 }MG513;

@@ -17,7 +17,8 @@ void MG513_Motor_pwm_init(void)
     HAL_TIM_Base_Start_IT(&htim7); // pid¼ÆËã
 }
 
-void motor_pid_init(MG513 *motor, pids *PID, uint8_t motor_mode, uint8_t pid_mode, fp32 goal, fp32 KP, fp32 KI, fp32 KD, fp32 maxOut, fp32 maxIout)
+void motor_pid_init(MG513 *motor, pids *PID, uint8_t motor_mode, uint8_t pid_mode, fp32 goal,
+                    fp32 KP, fp32 KI, fp32 KD, fp32 maxOut, fp32 maxIout)
 {
     if (motor->motor_mode != MOTOR_POSITION)
     {

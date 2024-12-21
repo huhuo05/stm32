@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"g431_test\startup_stm32g431xx.o"
+"g431_test\main.o"
+"g431_test\gpio.o"
+"g431_test\tim.o"
+"g431_test\stm32g4xx_it.o"
+"g431_test\stm32g4xx_hal_msp.o"
+"g431_test\stm32g4xx_hal_tim.o"
+"g431_test\stm32g4xx_hal_tim_ex.o"
+"g431_test\stm32g4xx_hal_pwr_ex.o"
+"g431_test\stm32g4xx_hal.o"
+"g431_test\stm32g4xx_hal_rcc.o"
+"g431_test\stm32g4xx_hal_rcc_ex.o"
+"g431_test\stm32g4xx_hal_flash.o"
+"g431_test\stm32g4xx_hal_flash_ex.o"
+"g431_test\stm32g4xx_hal_flash_ramfunc.o"
+"g431_test\stm32g4xx_hal_gpio.o"
+"g431_test\stm32g4xx_hal_exti.o"
+"g431_test\stm32g4xx_hal_dma.o"
+"g431_test\stm32g4xx_hal_dma_ex.o"
+"g431_test\stm32g4xx_hal_pwr.o"
+"g431_test\stm32g4xx_hal_cortex.o"
+"g431_test\system_stm32g4xx.o"
+--strict --scatter "G431_test\G431_test.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "G431_test.map" -o G431_test\G431_test.axf

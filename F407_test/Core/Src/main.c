@@ -23,7 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "oled.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,13 +56,13 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint16_t a[4];
+float a[4][11]={0};
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -117,17 +118,30 @@ int main(void)
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_4, GPIO_PIN_RESET);
   HAL_TIM_Base_Start_IT(&htim6);
   HAL_TIM_Base_Start_IT(&htim7);
-  for (uint8_t i = 0; i < 4; i++)
-  {
-    a[i] = 0;
-  }
+	OLED_Init();	 //OLED初始化  
+	OLED_Clear();//清屏
+	char t=' ';
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+	  OLED_Clear();
+	  OLED_ShowCHinese(18,0,0);
+	  OLED_ShowCHinese(36,0,1);
+	  OLED_ShowCHinese(54,0,2);
+	  OLED_ShowCHinese(72,0,3);
+	  OLED_ShowCHinese(90,0,4);
+		OLED_ShowString(6,3,"0.96 '  OLED TEST");
+		OLED_ShowString(0,6,"ASCII:");  
+		OLED_ShowString(63,6,"CODE:");  
+		OLED_ShowChar(48,6,t);//显示字符  
+		t++;
+		if(t>'~')t=' ';
+		OLED_ShowNum(103,6,t,3,16);//显示数字 	
+		HAL_Delay(2000);
+	  
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -136,22 +150,22 @@ int main(void)
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-   */
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -166,8 +180,9 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -180,23 +195,51 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  if (htim == &htim6)
-  {
-    a[0] = __HAL_TIM_GetCounter(&htim2);
-    a[1] = __HAL_TIM_GetCounter(&htim5);
-    a[2] = __HAL_TIM_GetCounter(&htim4);
-    a[3] = __HAL_TIM_GetCounter(&htim3);
-  }
-}
 
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM14 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+  if (htim == &htim6)
+  {
+	  Mean_filtering(a[0]);
+        a[0][0] = (float)__HAL_TIM_GET_COUNTER(&htim2);
+        __HAL_TIM_SET_COUNTER(&htim2, 0);
+
+        Mean_filtering(a[1]);
+        a[1][0] = (float)__HAL_TIM_GET_COUNTER(&htim3);
+        __HAL_TIM_SET_COUNTER(&htim3, 0);
+
+        Mean_filtering(a[2]);
+        a[2][0] = (float)__HAL_TIM_GET_COUNTER(&htim4);
+        __HAL_TIM_SET_COUNTER(&htim4, 0);
+
+        Mean_filtering(a[3]);
+        a[3][0] = (float)__HAL_TIM_GET_COUNTER(&htim5);
+        __HAL_TIM_SET_COUNTER(&htim5, 0);
+  }
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM14) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -208,14 +251,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

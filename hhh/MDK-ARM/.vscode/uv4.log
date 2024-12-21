@@ -1,43 +1,60 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'hhh'
-compiling APP_classic.c...
-..\Application\APP_classic.c(5): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          MOTOR_PID[0]->wheel_speed = (fp32)cout[0][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\Application\APP_classic.c(6): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          MOTOR_PID[1]->wheel_speed = (fp32)cout[1][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\Application\APP_classic.c(7): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          MOTOR_PID[2]->wheel_speed = (fp32)cout[2][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\Application\APP_classic.c(8): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          MOTOR_PID[3]->wheel_speed = (fp32)cout[3][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\Application\APP_classic.c(9): error:  #154: expression must have struct or union type
-          PID_calc(&MOTOR_PID[0], MOTOR_PID[0]->wheel_speed, PID_SET[0].set);
-..\Application\APP_classic.c(9): error:  #167: argument of type "pids **" is incompatible with parameter of type "pids *"
-          PID_calc(&MOTOR_PID[0], MOTOR_PID[0]->wheel_speed, PID_SET[0].set);
-..\Application\APP_classic.c(10): error:  #154: expression must have struct or union type
-          PID_calc(&MOTOR_PID[1], MOTOR_PID[1]->wheel_speed, PID_SET[1].set);
-..\Application\APP_classic.c(10): error:  #167: argument of type "pids **" is incompatible with parameter of type "pids *"
-          PID_calc(&MOTOR_PID[1], MOTOR_PID[1]->wheel_speed, PID_SET[1].set);
-..\Application\APP_classic.c(11): error:  #154: expression must have struct or union type
-          PID_calc(&MOTOR_PID[2], MOTOR_PID[2]->wheel_speed, PID_SET[2].set);
-..\Application\APP_classic.c(11): error:  #167: argument of type "pids **" is incompatible with parameter of type "pids *"
-          PID_calc(&MOTOR_PID[2], MOTOR_PID[2]->wheel_speed, PID_SET[2].set);
-..\Application\APP_classic.c(12): error:  #154: expression must have struct or union type
-          PID_calc(&MOTOR_PID[3], MOTOR_PID[3]->wheel_speed, PID_SET[3].set);
-..\Application\APP_classic.c(12): error:  #167: argument of type "pids **" is incompatible with parameter of type "pids *"
-          PID_calc(&MOTOR_PID[3], MOTOR_PID[3]->wheel_speed, PID_SET[3].set);
-..\Application\APP_classic.c: 4 warnings, 8 errors
-compiling math.c...
-compiling callback.c...
-..\CALLBACK\callback.c(66): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          callback.PID[0].wheel_speed = (fp32)callback.cout[0][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\CALLBACK\callback.c(67): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          callback.PID[1].wheel_speed = (fp32)callback.cout[1][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\CALLBACK\callback.c(68): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          callback.PID[2].wheel_speed = (fp32)callback.cout[2][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\CALLBACK\callback.c(69): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          callback.PID[3].wheel_speed = (fp32)callback.cout[3][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-..\CALLBACK\callback.c: 4 warnings, 0 errors
+compiling motor.c...
+..\BSP\motor.c(31): error:  #513: a value of type "pids *" cannot be assigned to an entity of type "pids"
+          motor->pid1 = PID;
+..\BSP\motor.c(32): error:  #44: expression must have pointer type
+          motor->pid1->mode = pid_mode;
+..\BSP\motor.c(33): error:  #44: expression must have pointer type
+          motor->pid1->Kp = KP;
+..\BSP\motor.c(34): error:  #44: expression must have pointer type
+          motor->pid1->Ki = KI;
+..\BSP\motor.c(35): error:  #44: expression must have pointer type
+          motor->pid1->Kd = KD;
+..\BSP\motor.c(36): error:  #44: expression must have pointer type
+          motor->pid1->max_out = maxOut;
+..\BSP\motor.c(37): error:  #44: expression must have pointer type
+          motor->pid1->max_iout = maxIout;
+..\BSP\motor.c(38): error:  #44: expression must have pointer type
+          pidINIT(motor->pid1, PID_POSITION, motor->pid1->Kp, motor->pid1->Ki, motor->pid1->Kd, motor->pid1->max_out, motor->pid1->max_iout);
+..\BSP\motor.c(38): error:  #44: expression must have pointer type
+          pidINIT(motor->pid1, PID_POSITION, motor->pid1->Kp, motor->pid1->Ki, motor->pid1->Kd, motor->pid1->max_out, motor->pid1->max_iout);
+..\BSP\motor.c(38): error:  #44: expression must have pointer type
+          pidINIT(motor->pid1, PID_POSITION, motor->pid1->Kp, motor->pid1->Ki, motor->pid1->Kd, motor->pid1->max_out, motor->pid1->max_iout);
+..\BSP\motor.c(38): error:  #44: expression must have pointer type
+          pidINIT(motor->pid1, PID_POSITION, motor->pid1->Kp, motor->pid1->Ki, motor->pid1->Kd, motor->pid1->max_out, motor->pid1->max_iout);
+..\BSP\motor.c(38): error:  #44: expression must have pointer type
+          pidINIT(motor->pid1, PID_POSITION, motor->pid1->Kp, motor->pid1->Ki, motor->pid1->Kd, motor->pid1->max_out, motor->pid1->max_iout);
+..\BSP\motor.c(38): error:  #167: argument of type "pids" is incompatible with parameter of type "pids *"
+          pidINIT(motor->pid1, PID_POSITION, motor->pid1->Kp, motor->pid1->Ki, motor->pid1->Kd, motor->pid1->max_out, motor->pid1->max_iout);
+..\BSP\motor.c(43): error:  #513: a value of type "pids *" cannot be assigned to an entity of type "pids"
+          motor->pid2 = PID;
+..\BSP\motor.c(44): error:  #44: expression must have pointer type
+          motor->pid2->mode = pid_mode;
+..\BSP\motor.c(45): error:  #44: expression must have pointer type
+          motor->pid2->Kp = KP;
+..\BSP\motor.c(46): error:  #44: expression must have pointer type
+          motor->pid2->Ki = KI;
+..\BSP\motor.c(47): error:  #44: expression must have pointer type
+          motor->pid2->Kd = KD;
+..\BSP\motor.c(48): error:  #44: expression must have pointer type
+          motor->pid2->max_out = maxOut;
+..\BSP\motor.c(49): error:  #44: expression must have pointer type
+          motor->pid2->max_iout = maxIout;
+..\BSP\motor.c(50): error:  #44: expression must have pointer type
+          pidINIT(motor->pid2, PID_POSITION, motor->pid2->Kp, motor->pid2->Ki, motor->pid2->Kd, motor->pid2->max_out, motor->pid2->max_iout);
+..\BSP\motor.c(50): error:  #44: expression must have pointer type
+          pidINIT(motor->pid2, PID_POSITION, motor->pid2->Kp, motor->pid2->Ki, motor->pid2->Kd, motor->pid2->max_out, motor->pid2->max_iout);
+..\BSP\motor.c(50): error:  #44: expression must have pointer type
+          pidINIT(motor->pid2, PID_POSITION, motor->pid2->Kp, motor->pid2->Ki, motor->pid2->Kd, motor->pid2->max_out, motor->pid2->max_iout);
+..\BSP\motor.c(50): error:  #44: expression must have pointer type
+          pidINIT(motor->pid2, PID_POSITION, motor->pid2->Kp, motor->pid2->Ki, motor->pid2->Kd, motor->pid2->max_out, motor->pid2->max_iout);
+..\BSP\motor.c(50): error:  #44: expression must have pointer type
+          pidINIT(motor->pid2, PID_POSITION, motor->pid2->Kp, motor->pid2->Ki, motor->pid2->Kd, motor->pid2->max_out, motor->pid2->max_iout);
+..\BSP\motor.c(50): error:  #167: argument of type "pids" is incompatible with parameter of type "pids *"
+          pidINIT(motor->pid2, PID_POSITION, motor->pid2->Kp, motor->pid2->Ki, motor->pid2->Kd, motor->pid2->max_out, motor->pid2->max_iout);
+..\BSP\motor.c: 0 warnings, 26 errors
 compiling main.c...
-"hhh\hhh.axf" - 8 Error(s), 8 Warning(s).
+"hhh\hhh.axf" - 26 Error(s), 0 Warning(s).
 Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:05
