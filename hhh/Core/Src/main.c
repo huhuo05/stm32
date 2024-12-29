@@ -18,10 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "can.h"
 #include "dma.h"
-#include "i2c.h"
-#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -29,8 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "pid.h"
-#include "callback.h"
 #include "motor.h"
+#include "APP_classic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,12 +63,13 @@ MG513 A_motor;
 MG513 B_motor;
 MG513 C_motor;
 MG513 D_motor;
+Car car;
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -107,13 +105,16 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM7_Init();
   MX_TIM11_Init();
-  MX_SPI1_Init();
   MX_USART2_UART_Init();
-  MX_CAN1_Init();
-  MX_CAN2_Init();
-  MX_I2C3_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  PS2_SetInit();
+  // 底盘初始�?
+  MG513_Init(&A_motor, &A_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
+  MG513_Init(&B_motor, &B_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
+  MG513_Init(&C_motor, &C_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
+  MG513_Init(&D_motor, &D_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
+  Classic_init(&car, &A_motor, &B_motor, &C_motor, &D_motor);
+  MG513_Motor_pwm_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -128,22 +129,22 @@ int main(void)
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-   */
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -158,8 +159,9 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -176,13 +178,13 @@ void SystemClock_Config(void)
 /* USER CODE END 4 */
 
 /**
- * @brief  Period elapsed callback in non blocking mode
- * @note   This function is called  when TIM10 interrupt took place, inside
- * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
- * a global variable "uwTick" used as application time base.
- * @param  htim : TIM handle
- * @retval None
- */
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM10 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
@@ -193,9 +195,22 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     MG513_encodervalue_get(C_motor.cout, &htim4);
     MG513_encodervalue_get(D_motor.cout, &htim5);
   }
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM10)
+  if (htim == &htim7) // 100HZ
   {
+    pids *pid[4];
+    for (int i = 0; i < 4; i++)
+    {
+      pid[i] = &car.motorgroup[i]->pid1;
+    }
+    MG513_pwm_send(pid);
+  }
+  if (htim == &htim11)
+  {
+
+  }
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM10) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
@@ -204,9 +219,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -218,14 +233,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

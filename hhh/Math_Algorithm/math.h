@@ -2,11 +2,14 @@
 #define MATH_H
 
 #include "main.h"
-#include "callback.h"
 
 #define R 0.1f // 车中心到轮子的距离 单位：m；
-#define p 3.141592
+#define p 3.141592f
 #define k_rpm p *R / 30.0f
+
+#define D 0.06f           // 单位：m
+#define Redu_Ratio 30.0f  //
+#define Line_number 13.0f //
 
 // #define get_motor_measure(ptr, data)                                   \
 //     {                                                                  \

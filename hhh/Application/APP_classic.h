@@ -1,19 +1,18 @@
-#ifndef APP_classic_h
-#define APP_classic_h
+#include "motor.h"
 
-#include "main.h"
-#include "pid.h"
-#include "math.h"
+#ifndef __APP_classic_h
+#define __APP_classic_h
 
 typedef struct APP_CarDate
 {
-    fp32 V[4]; // V[0]-x方向上的分速度大小；V[1]-y方向上的分速度大小// V[2]-z方向上的分速度大小// V[3]-速度大小
+    uint8_t init;
+    MG513 *motorgroup[4];
 } Car;
 
-#define D 0.06            // m
-#define Redu_Ratio 30.0f  //
-#define Line_number 13.0f //
-
-extern void classic_init(void);
+void MG513_Init(MG513 *motor, pids *PID, uint8_t motor_mode, fp32 goal,
+                fp32 KP, fp32 KI, fp32 KD, fp32 maxOut, fp32 maxIout);
+void Classic_init(Car *car, MG513 *MOTORA, MG513 *MOTORB, MG513 *MOTORC, MG513 *MOTORD);
+void classic_control(Car *car, float x, float y, float z);
+void MG513_pwm_send(pids *MOTOR_PID[4]);
 
 #endif

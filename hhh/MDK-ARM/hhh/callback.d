@@ -48,3 +48,5 @@ hhh\callback.o: ../Math_Algorithm/math.h
 hhh\callback.o: ../CALLBACK/callback.h
 hhh\callback.o: ../Application/APP_classic.h
 hhh\callback.o: ../Math_Algorithm/pid.h
+hhh\callback.o: ../BSP/motor.h
+hhh\callback.o: ../Math_Algorithm/pid.h

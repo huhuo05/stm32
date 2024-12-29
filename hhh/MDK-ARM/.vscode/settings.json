@@ -2,6 +2,8 @@
     "files.associations": {
         "bsp_classic.h": "c",
         "callback.h": "c",
-        "app_remote_control.h": "c"
+        "app_remote_control.h": "c",
+        "app_classic.h": "c",
+        "motor.h": "c"
     }
 }

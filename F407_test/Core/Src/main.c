@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "spi.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -95,52 +96,53 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM5_Init();
   MX_TIM3_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
-  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
-  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 200);
-  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 200);
-  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, 200);
-  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, 200);
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_5, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_4, GPIO_PIN_RESET);
-  HAL_TIM_Base_Start_IT(&htim6);
-  HAL_TIM_Base_Start_IT(&htim7);
-	OLED_Init();	 //OLED初始化  
-	OLED_Clear();//清屏
-	char t=' ';
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+//  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+//  HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+//  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+//  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
+//  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 200);
+//  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 200);
+//  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, 200);
+//  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, 200);
+//  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_6, GPIO_PIN_RESET);
+//  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_5, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
+//  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_RESET);
+//  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_4, GPIO_PIN_RESET);
+//  HAL_TIM_Base_Start_IT(&htim6);
+//  HAL_TIM_Base_Start_IT(&htim7);
+//	OLED_Init();	 //OLED初始化  
+//	OLED_Clear();//清屏
+//	char t=' ';
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  OLED_Clear();
-	  OLED_ShowCHinese(18,0,0);
-	  OLED_ShowCHinese(36,0,1);
-	  OLED_ShowCHinese(54,0,2);
-	  OLED_ShowCHinese(72,0,3);
-	  OLED_ShowCHinese(90,0,4);
-		OLED_ShowString(6,3,"0.96 '  OLED TEST");
-		OLED_ShowString(0,6,"ASCII:");  
-		OLED_ShowString(63,6,"CODE:");  
-		OLED_ShowChar(48,6,t);//显示字符  
-		t++;
-		if(t>'~')t=' ';
-		OLED_ShowNum(103,6,t,3,16);//显示数字 	
-		HAL_Delay(2000);
+//	  OLED_Clear();
+//	  OLED_ShowCHinese(18,0,0);
+//	  OLED_ShowCHinese(36,0,1);
+//	  OLED_ShowCHinese(54,0,2);
+//	  OLED_ShowCHinese(72,0,3);
+//	  OLED_ShowCHinese(90,0,4);
+//		OLED_ShowString(6,3,"0.96 '  OLED TEST");
+//		OLED_ShowString(0,6,"ASCII:");  
+//		OLED_ShowString(63,6,"CODE:");  
+//		OLED_ShowChar(48,6,t);//显示字符  
+//		t++;
+//		if(t>'~')t=' ';
+//		OLED_ShowNum(103,6,t,3,16);//显示数字 	
+//		HAL_Delay(2000);
 	  
     /* USER CODE END WHILE */
 
