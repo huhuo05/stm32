@@ -32,14 +32,14 @@ void MG513_pwm_send(pids *MOTOR_PID[4])
         }
         if (MOTOR_PID[1]->out > 0 || MOTOR_PID[1]->out == 0)
         {
-                HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_SET);
-                HAL_GPIO_WritePin(B2_GPIO_Port, B2_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(B2_GPIO_Port, B2_Pin, GPIO_PIN_SET);
                 __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, MOTOR_PID[1]->out);
         }
         else
         {
-                HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(B2_GPIO_Port, B2_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(B2_GPIO_Port, B2_Pin, GPIO_PIN_RESET);
                 __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, -MOTOR_PID[1]->out);
         }
         if (MOTOR_PID[2]->out > 0 || MOTOR_PID[2]->out == 0)
@@ -68,12 +68,15 @@ void MG513_pwm_send(pids *MOTOR_PID[4])
         }
 }
 
+/// @brief
+/// @param v
+/// @param v_goal
 void Action_Positive_solution(float v[4], float v_goal[3])
 {
         v[0] = (v_goal[0] - v_goal[1]) / 1.4142f + v_goal[2];
-        v[1] = (-v_goal[0] - v_goal[1]) / 1.4142f + v_goal[2];
+        v[1] = (v_goal[0] + v_goal[1]) / 1.4142f + v_goal[2];
         v[2] = (-v_goal[0] + v_goal[1]) / 1.4142f + v_goal[2];
-        v[3] = (v_goal[0] + v_goal[1]) / 1.4142f + v_goal[2];
+        v[3] = (-v_goal[0] - v_goal[1]) / 1.4142f + v_goal[2];
 }
 
 void Action_Negative_solution(float v[4], float v_recent[3])
@@ -86,13 +89,11 @@ void Action_Negative_solution(float v[4], float v_recent[3])
 void classic_control(Car *car, float x, float y, float z)
 {
         float v_temp[3] = {x, y, z};
-        float v[4];
-        pids *pid[4];
-        for (int i = 0; i < 4; i++)
-        {
-                v[i] = car->motorgroup[i]->V[i];
-                pid[i] = &car->motorgroup[i]->pid1;
-        }
+        float v[4] = {0, 0, 0, 0};
         Action_Positive_solution(v, v_temp);
-        MG513_pwm_send(pid);
+        for (uint8_t i = 0; i < 4; i++)
+        {
+                car->motorgroup[i]->pid1.set = v[i];
+        }
+        //        MG513_pwm_send(pid);
 }

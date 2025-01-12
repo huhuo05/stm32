@@ -8,8 +8,9 @@
 #define k_rpm p *R / 30.0f
 
 #define D 0.06f           // 单位：m
-#define Redu_Ratio 30.0f  //
-#define Line_number 13.0f //
+#define Redu_Ratio 30.0f  // 减速比
+#define Line_number 13.0f // 线数
+#define T 0.0001f         // 采样周期
 
 // #define get_motor_measure(ptr, data)                                   \
 //     {                                                                  \

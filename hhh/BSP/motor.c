@@ -39,6 +39,7 @@ void motor_pid_init(MG513 *motor, pids *PID, uint8_t motor_mode, fp32 goal,
         motor->pid1.max_iout = maxIout;
         pidINIT(&motor->pid1, PID_POSITION, motor->pid1.Kp, motor->pid1.Ki,
                 motor->pid1.Kd, motor->pid1.max_out, motor->pid1.max_iout);
+        motor->pid1.set = goal;
     }
     break;
     case MOTOR_POSITION:
@@ -46,6 +47,7 @@ void motor_pid_init(MG513 *motor, pids *PID, uint8_t motor_mode, fp32 goal,
         motor->motor_mode_sign[1] = 1;
         //        motor->pid2 = PID;
         motor->pid2.mode = motor_mode;
+
         motor->pid2.Kp = KP;
         motor->pid2.Ki = KI;
         motor->pid2.Kd = KD;
@@ -53,6 +55,7 @@ void motor_pid_init(MG513 *motor, pids *PID, uint8_t motor_mode, fp32 goal,
         motor->pid2.max_iout = maxIout;
         pidINIT(&motor->pid2, PID_POSITION, motor->pid2.Kp, motor->pid2.Ki,
                 motor->pid2.Kd, motor->pid2.max_out, motor->pid2.max_iout);
+        motor->pid2.set = goal;
     }
     break;
     default:
@@ -62,31 +65,36 @@ void motor_pid_init(MG513 *motor, pids *PID, uint8_t motor_mode, fp32 goal,
 
 void MG513_encodervalue_get(float a[11], TIM_HandleTypeDef *_tim)
 {
-    Mean_filtering(a);
-    a[0] = (float)__HAL_TIM_GET_COUNTER(_tim);
-    __HAL_TIM_SET_COUNTER(_tim, 0);
+    a[0] = (float)__HAL_TIM_GET_COUNTER(_tim) - 30000;
+    if (a[0] < 10000)
+    {
+        __HAL_TIM_SET_COUNTER(_tim, 30000);
+        Mean_filtering(a);
+    }
+    else
+        a[0] = 0;
 }
 
 void MG513_calculate(pids *MOTOR_PID[4], float *cout[4])
 {
-    MOTOR_PID[0]->wheel_speed = (fp32)cout[0][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-    MOTOR_PID[1]->wheel_speed = (fp32)cout[1][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-    MOTOR_PID[2]->wheel_speed = (fp32)cout[2][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-    MOTOR_PID[3]->wheel_speed = (fp32)cout[3][10] * p * D / 4.0f / Redu_Ratio / Line_number;
+    MOTOR_PID[0]->wheel_speed = (fp32)cout[0][10] * p * D / 4.0f / Redu_Ratio / Line_number / T;
+    MOTOR_PID[1]->wheel_speed = (fp32)cout[1][10] * p * D / 4.0f / Redu_Ratio / Line_number / T;
+    MOTOR_PID[2]->wheel_speed = (fp32)cout[2][10] * p * D / 4.0f / Redu_Ratio / Line_number / T;
+    MOTOR_PID[3]->wheel_speed = (fp32)cout[3][10] * p * D / 4.0f / Redu_Ratio / Line_number / T;
 
     //
     MOTOR_PID[0]->out = PID_calc(MOTOR_PID[0], MOTOR_PID[0]->wheel_speed, MOTOR_PID[0]->set);
     MOTOR_PID[1]->out = PID_calc(MOTOR_PID[1], MOTOR_PID[1]->wheel_speed, MOTOR_PID[1]->set);
     MOTOR_PID[2]->out = PID_calc(MOTOR_PID[2], MOTOR_PID[2]->wheel_speed, MOTOR_PID[2]->set);
     MOTOR_PID[3]->out = PID_calc(MOTOR_PID[3], MOTOR_PID[3]->wheel_speed, MOTOR_PID[3]->set);
-    // for (uint8_t i = 0; i < 4; i++)
-    // {
-    //     MOTOR_PID[i]->wheel_speed = (fp32)cout[i][10] * p * D / 4.0f / Redu_Ratio / Line_number;
-    // }
-    // for (uint8_t i = 0; i < 4; i++)
-    // {
-    //     MOTOR_PID[i]->out = PID_calc(MOTOR_PID[i], MOTOR_PID[i]->wheel_speed, MOTOR_PID[i]->set);
-    // }
+    //    for (uint8_t i = 0; i < 4; i++)
+    //    {
+    // MOTOR_PID[i]->wheel_speed = (fp32)cout[i][10] * p * D / 4.0f / Redu_Ratio / Line_number / T;
+    //    }
+    //    for (uint8_t i = 0; i < 4; i++)
+    //    {
+    //        MOTOR_PID[i]->out = PID_calc(MOTOR_PID[i], MOTOR_PID[i]->wheel_speed, MOTOR_PID[i]->set);
+    //    }
 }
 
 void MG513_Motor_stop(void)

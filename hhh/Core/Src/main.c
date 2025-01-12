@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "vofa.h"
 #include "pid.h"
 #include "motor.h"
 #include "APP_classic.h"
@@ -64,6 +65,7 @@ MG513 B_motor;
 MG513 C_motor;
 MG513 D_motor;
 Car car;
+float RC[3] = {0, 141.42, 0};
 /* USER CODE END 0 */
 
 /**
@@ -108,11 +110,11 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  // 搴曠洏鍒濆鍖?
-  MG513_Init(&A_motor, &A_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
-  MG513_Init(&B_motor, &B_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
-  MG513_Init(&C_motor, &C_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
-  MG513_Init(&D_motor, &D_motor.pid1, MOTOR_SPEED, 0.0f, 0.0f, 0.0f, 0.0f, 200.0f, 200.0f);
+  // 电机初始化
+  MG513_Init(&A_motor, &A_motor.pid1, MOTOR_SPEED, 200.0f, 1.0f, 0.0f, 0.0f, 700.0f, 200.0f);
+  MG513_Init(&B_motor, &B_motor.pid1, MOTOR_SPEED, 200.0f, 1.04122f, 0.0f, 0.0f, 700.0f, 200.0f);
+  MG513_Init(&C_motor, &C_motor.pid1, MOTOR_SPEED, 200.0f, 1.000008f, 0.0f, 0.0f, 700.0f, 200.0f);
+  MG513_Init(&D_motor, &D_motor.pid1, MOTOR_SPEED, 200.0f, 1.000007f, 0.0f, 0.0f, 700.0f, 200.0f);
   Classic_init(&car, &A_motor, &B_motor, &C_motor, &D_motor);
   MG513_Motor_pwm_init();
   /* USER CODE END 2 */
@@ -121,6 +123,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    classic_control(&car, RC[0], RC[1], RC[2]);
+    printf("100,-100,%f,%f,%f,%f\n", A_motor.pid1.out, B_motor.pid1.out, C_motor.pid1.out, D_motor.pid1.out);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -198,15 +202,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim == &htim7) // 100HZ
   {
     pids *pid[4];
+    float *cout[4];
     for (int i = 0; i < 4; i++)
     {
       pid[i] = &car.motorgroup[i]->pid1;
+      cout[i] = car.motorgroup[i]->cout;
     }
+    MG513_calculate(pid, cout);
     MG513_pwm_send(pid);
   }
   if (htim == &htim11)
   {
-
   }
 
   /* USER CODE END Callback 0 */

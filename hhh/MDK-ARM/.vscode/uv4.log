@@ -1,12 +1,4 @@
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\Keil_v5\ARM\ARMCC\Bin'
-Build target 'hhh'
-compiling main.c...
-linking...
-hhh\hhh.axf: Error: L6218E: Undefined symbol PS2_Receive (referred from app_remote_control.o).
-hhh\hhh.axf: Error: L6218E: Undefined symbol PS2_SetInit (referred from app_remote_control.o).
-Not enough information to list image symbols.
-Not enough information to list load addresses in the image map.
-Finished: 2 information, 0 warning and 2 error messages.
-"hhh\hhh.axf" - 2 Error(s), 0 Warning(s).
-Target not created.
-Build Time Elapsed:  00:00:03
+Load "hhh\\hhh.axf" 
+Internal DLL Error
+Error: Flash Download failed  -  Target DLL has been cancelled
+Flash Load finished at 15:16:16

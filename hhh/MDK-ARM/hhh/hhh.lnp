@@ -30,7 +30,8 @@
 "hhh\app_classic.o"
 "hhh\pid.o"
 "hhh\math.o"
---strict --scatter "hhh\hhh.sct"
+"hhh\vofa.o"
+--library_type=microlib --strict --scatter "hhh\hhh.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "hhh.map" -o hhh\hhh.axf

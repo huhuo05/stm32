@@ -35,6 +35,8 @@ hhh\main.o: ../Core/Inc/dma.h
 hhh\main.o: ../Core/Inc/tim.h
 hhh\main.o: ../Core/Inc/usart.h
 hhh\main.o: ../Core/Inc/gpio.h
+hhh\main.o: ../User/vofa.h
+hhh\main.o: D:\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 hhh\main.o: ../Math_Algorithm/pid.h
 hhh\main.o: ../Math_Algorithm/struct_typedef.h
 hhh\main.o: ../BSP/motor.h
