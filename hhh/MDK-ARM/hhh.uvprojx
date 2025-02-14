@@ -748,6 +748,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\oled.c</FilePath>
             </File>
+            <File>
+              <FileName>ps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\ps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
