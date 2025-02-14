@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "motor.h": "c",
+        "app_classic.h": "c"
+    }
+}
