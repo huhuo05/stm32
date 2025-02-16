@@ -3,6 +3,7 @@
 "f103_tect\main.o"
 "f103_tect\gpio.o"
 "f103_tect\adc.o"
+"f103_tect\dma.o"
 "f103_tect\spi.o"
 "f103_tect\tim.o"
 "f103_tect\usart.o"

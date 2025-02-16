@@ -191,7 +191,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     // 计算
     MG513_Calculate(&car.motorgroup[0]->pid1, car.motorgroup[0]->cout);
     MG513_Calculate(&car.motorgroup[1]->pid1, car.motorgroup[1]->cout);
-    // 发送
+    // 发�??
     pids *temp_pid[4] = {NULL};
     for (int i = 0; i < 4; i++)
     {

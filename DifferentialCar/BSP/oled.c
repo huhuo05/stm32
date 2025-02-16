@@ -47,6 +47,8 @@ void OLED_Display_On(void)
 	OLED_WR_Byte(0X8D, OLED_CMD); // SET DCDC命令
 	OLED_WR_Byte(0X14, OLED_CMD); // DCDC ON
 	OLED_WR_Byte(0XAF, OLED_CMD); // DISPLAY ON
+
+	// HAL_SPI_Transmit(&hspi2, (uint8_t *)&OLED_GRAM[0], sizeof(OLED_GRAM), 1000);
 }
 // 关闭OLED显示
 void OLED_Display_Off(void)

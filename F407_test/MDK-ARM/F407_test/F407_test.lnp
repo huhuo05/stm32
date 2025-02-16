@@ -4,6 +4,7 @@
 "f407_test\gpio.o"
 "f407_test\spi.o"
 "f407_test\tim.o"
+"f407_test\usart.o"
 "f407_test\stm32f4xx_it.o"
 "f407_test\stm32f4xx_hal_msp.o"
 "f407_test\stm32f4xx_hal_timebase_tim.o"
@@ -23,9 +24,12 @@
 "f407_test\stm32f4xx_hal_exti.o"
 "f407_test\stm32f4xx_hal_tim.o"
 "f407_test\stm32f4xx_hal_tim_ex.o"
+"f407_test\stm32f4xx_hal_uart.o"
 "f407_test\system_stm32f4xx.o"
 "f407_test\oled.o"
 "f407_test\math.o"
+"f407_test\ps2.o"
+"f407_test\vofa.o"
 --strict --scatter "F407_test\F407_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

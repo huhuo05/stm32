@@ -20,6 +20,7 @@
 #include "main.h"
 #include "spi.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -97,7 +98,10 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM3_Init();
   MX_SPI2_Init();
+  MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+  uint8_t Data[16];
 //  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 //  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
 //  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -129,6 +133,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  HAL_UART_Receive(&huart3,Data,8,1000);
+	  HAL_UART_Transmit(&huart1,Data,8,1000);
 //	  OLED_Clear();
 //	  OLED_ShowCHinese(18,0,0);
 //	  OLED_ShowCHinese(36,0,1);

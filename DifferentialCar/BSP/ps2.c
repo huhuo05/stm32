@@ -24,10 +24,11 @@ uint16_t MASK[] = {
     PSB_PINK}; // 按键值与按键明
 
 PS2 ps2;
-
 // 向手柄发送命令
 void PS2_Cmd(uint8_t CMD)
 {
+    // HAL_SPI_Transmit(&hspi2, &CMD, 1, 1000);
+
     volatile uint16_t ref = 0x01;
     Data[1] = 0;
     for (ref = 0x01; ref < 0x0100; ref <<= 1)
@@ -66,6 +67,8 @@ uint8_t PS2_RedLight(void)
 // 读取手柄数据
 void PS2_ReadData(void)
 {
+    // HAL_SPI_Transmit(&hspi2, Data, 9, 1000);
+
     volatile uint8_t byte = 0;
     volatile uint16_t ref = 0x01;
     CS_L;

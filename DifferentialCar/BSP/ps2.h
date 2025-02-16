@@ -3,32 +3,33 @@
 
 #include "main.h"
 #include "gpio.h"
+#include "spi.h"
 
 typedef struct ps2_date
 {
     int PS2_LX, PS2_LY, PS2_RX, PS2_RY, PS2_KEY; //
 } PS2;
 
-//Òı½Å×Ô¶¨Òå
-#define PS2_CLK_Pin GPIO_PIN_11
-#define PS2_CLK_GPIO_Port GPIOB
+// å¼•è„šè‡ªå®šä¹‰
 #define PS2_CS_Pin GPIO_PIN_12
 #define PS2_CS_GPIO_Port GPIOB
-#define PS2_DO_Pin GPIO_PIN_13
+#define PS2_CLK_Pin GPIO_PIN_13
+#define PS2_CLK_GPIO_Port GPIOB
+#define PS2_DO_Pin GPIO_PIN_14
 #define PS2_DO_GPIO_Port GPIOB
-#define PS2_DI_Pin GPIO_PIN_14
+#define PS2_DI_Pin GPIO_PIN_15
 #define PS2_DI_GPIO_Port GPIOB
 
-#define DI HAL_GPIO_ReadPin(PS2_DI_GPIO_Port, PS2_DI_Pin) // ÊäÈë
+#define DI HAL_GPIO_ReadPin(PS2_DI_GPIO_Port, PS2_DI_Pin) // è¾“å…¥
 
-#define DO_H HAL_GPIO_WritePin(PS2_DO_GPIO_Port, PS2_DO_Pin, GPIO_PIN_SET)   // ÃüÁîÎ»¸ß
-#define DO_L HAL_GPIO_WritePin(PS2_DO_GPIO_Port, PS2_DO_Pin, GPIO_PIN_RESET) // ÃüÁîÎ»µÍ
+#define DO_H HAL_GPIO_WritePin(PS2_DO_GPIO_Port, PS2_DO_Pin, GPIO_PIN_SET)   // å‘½ä»¤ä½é«˜
+#define DO_L HAL_GPIO_WritePin(PS2_DO_GPIO_Port, PS2_DO_Pin, GPIO_PIN_RESET) // å‘½ä»¤ä½ä½
 
-#define CS_H HAL_GPIO_WritePin(PS2_CS_GPIO_Port, PS2_CS_Pin, GPIO_PIN_SET)   // CSÀ­¸ß
-#define CS_L HAL_GPIO_WritePin(PS2_CS_GPIO_Port, PS2_CS_Pin, GPIO_PIN_RESET) // CSÀ­µÍ
+#define CS_H HAL_GPIO_WritePin(PS2_CS_GPIO_Port, PS2_CS_Pin, GPIO_PIN_SET)   // CSæ‹‰é«˜
+#define CS_L HAL_GPIO_WritePin(PS2_CS_GPIO_Port, PS2_CS_Pin, GPIO_PIN_RESET) // CSæ‹‰ä½
 
-#define CLK_H HAL_GPIO_WritePin(PS2_CLK_GPIO_Port, PS2_CLK_Pin, GPIO_PIN_SET)   // Ê±ÖÓÀ­¸ß
-#define CLK_L HAL_GPIO_WritePin(PS2_CLK_GPIO_Port, PS2_CLK_Pin, GPIO_PIN_RESET) // Ê±ÖÓÀ­µÍ
+#define CLK_H HAL_GPIO_WritePin(PS2_CLK_GPIO_Port, PS2_CLK_Pin, GPIO_PIN_SET)   // æ—¶é’Ÿæ‹‰é«˜
+#define CLK_L HAL_GPIO_WritePin(PS2_CLK_GPIO_Port, PS2_CLK_Pin, GPIO_PIN_RESET) // æ—¶é’Ÿæ‹‰ä½
 
 // These are our button constants
 #define PSB_SELECT 1
@@ -58,7 +59,7 @@ typedef struct ps2_date
 #define Dead_band 20
 
 // These are stick values
-#define PSS_RX 5 // ÓÒÒ¡¸ËXÖáÊı¾İ
+#define PSS_RX 5 // å³æ‘‡æ†Xè½´æ•°æ®
 #define PSS_RY 6
 #define PSS_LX 7
 #define PSS_LY 8
@@ -68,22 +69,20 @@ extern uint16_t MASK[16];
 extern uint16_t Handkey;
 extern PS2 ps2;
 
-
-
 void PS2_Init(void);
-uint8_t PS2_RedLight(void);   //ÅĞ¶ÏÊÇ·ñÎªºìµÆÄ£Ê½
-void PS2_ReadData(void); //¶ÁÊÖ±úÊı¾İ
-void PS2_Cmd(uint8_t CMD);		  //ÏòÊÖ±ú·¢ËÍÃüÁî
-uint8_t PS2_DataKey(void);		  //°´¼üÖµ¶ÁÈ¡
-uint8_t PS2_AnologData(uint8_t button); //µÃµ½Ò»¸öÒ¡¸ËµÄÄ£ÄâÁ¿
-void PS2_ClearData(void);	  //Çå³ıÊı¾İ»º³åÇø
-void PS2_Vibration(uint8_t motor1, uint8_t motor2);//Õñ¶¯ÉèÖÃmotor1  0xFF¿ª£¬ÆäËû¹Ø£¬motor2  0x40~0xFF
+uint8_t PS2_RedLight(void);                         // åˆ¤æ–­æ˜¯å¦ä¸ºçº¢ç¯æ¨¡å¼
+void PS2_ReadData(void);                            // è¯»æ‰‹æŸ„æ•°æ®
+void PS2_Cmd(uint8_t CMD);                          // å‘æ‰‹æŸ„å‘é€å‘½ä»¤
+uint8_t PS2_DataKey(void);                          // æŒ‰é”®å€¼è¯»å–
+uint8_t PS2_AnologData(uint8_t button);             // å¾—åˆ°ä¸€ä¸ªæ‘‡æ†çš„æ¨¡æ‹Ÿé‡
+void PS2_ClearData(void);                           // æ¸…é™¤æ•°æ®ç¼“å†²åŒº
+void PS2_Vibration(uint8_t motor1, uint8_t motor2); // æŒ¯åŠ¨è®¾ç½®motor1  0xFFå¼€ï¼Œå…¶ä»–å…³ï¼Œmotor2  0x40~0xFF
 
-void PS2_EnterConfing(void);	 //½øÈëÅäÖÃ
-void PS2_TurnOnAnalogMode(void); //·¢ËÍÄ£ÄâÁ¿
-void PS2_VibrationMode(void);    //Õñ¶¯ÉèÖÃ
-void PS2_ExitConfing(void);	     //Íê³ÉÅäÖÃ
-void PS2_SetInit(void);		     //ÅäÖÃ³õÊ¼»¯
-void PS2_Receive (void);
+void PS2_EnterConfing(void);     // è¿›å…¥é…ç½®
+void PS2_TurnOnAnalogMode(void); // å‘é€æ¨¡æ‹Ÿé‡
+void PS2_VibrationMode(void);    // æŒ¯åŠ¨è®¾ç½®
+void PS2_ExitConfing(void);      // å®Œæˆé…ç½®
+void PS2_SetInit(void);          // é…ç½®åˆå§‹åŒ–
+void PS2_Receive(void);
 
 #endif
