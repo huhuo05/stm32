@@ -6,14 +6,25 @@
 #ifndef __MOTOR_H__
 #define __MOTOR_H__
 
-#define A1_Pin GPIO_PIN_4
-#define A1_GPIO_Port GPIOE
-#define A2_Pin GPIO_PIN_3
-#define A2_GPIO_Port GPIOE
+#define R 0.1f // 车中心到轮子的距离 单位：m；
+#define p 3.141592f
+#define k_rpm p *R / 30.0f
 
-#define B1_Pin GPIO_PIN_5
-#define B1_GPIO_Port GPIOE
-#define B2_Pin GPIO_PIN_6
+#define D 0.065f          // 单位：m
+#define Redu_Ratio 30.0f  // 减速比
+#define Line_number 13.0f // 线数
+#define Ti 0.001f         // 采样周期
+
+
+
+#define A1_Pin GPIO_PIN_8
+#define A1_GPIO_Port GPIOE
+#define A2_Pin GPIO_PIN_2
+#define A2_GPIO_Port GPIOB
+
+#define B1_Pin GPIO_PIN_1
+#define B1_GPIO_Port GPIOB
+#define B2_Pin GPIO_PIN_7
 #define B2_GPIO_Port GPIOE
 
 enum MOTOR_MODE
@@ -38,5 +49,6 @@ void MG513_encodervalue_get(float a[11], TIM_HandleTypeDef *_tim); // 编码器�
 void MG513_Calculate(pids *MOTOR_PID, float cout[11]);             // pid计算
 void MG513_pwm_send(pids *MOTOR_PID[4]);                           // PWM发送
 void MG513_Motor_stop(void);                                       // 电机停止
+void MG513_SET(pids *MOTOR_PID, float goal);                       // PID目标值设置
 
 #endif

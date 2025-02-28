@@ -19,15 +19,18 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma.h"
-#include "spi.h"
 #include "tim.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "motor.h"
+// #include "ax_ps2.h"
+// #include "ax_sys.h"   //系统设置
+// #include "ax_delay.h" //软件延时
 #include "WIT.h"
+#include "oled.h"
 #include "APP_classic.h"
 /* USER CODE END Includes */
 
@@ -60,19 +63,29 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t key = 0;
 int8_t email[44] = {NULL};
+
+float Turning_data[2][2] = {0.8f, 1.4f, 1.4f, 0.8f}; //
+
 MG513 A_motor;
 MG513 B_motor;
 Car car;
 
 WIT wit;
 
+// JOYSTICK_TypeDef my_joystick; // PS2手柄数据
+
+//void KEY_SCAN(); // 按键扫描
+void Grayscale_sensing_scan(Car *mg, GPIO_TypeDef *GPIO1, uint16_t GPIO_Pin1, GPIO_TypeDef *GPIO2, uint16_t GPIO_Pin2, GPIO_TypeDef *GPIO3,
+                            uint16_t GPIO_Pin3, GPIO_TypeDef *GPIO4, uint16_t GPIO_Pin4);
+
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -105,28 +118,57 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
-  MX_SPI2_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
+  MX_TIM4_Init();
+  MX_TIM5_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-  MG513_Init(&A_motor, PID_POSITION, 100, 1, 0, 0, 399, 20);
-  MG513_Init(&B_motor, PID_POSITION, 100, 1, 0, 0, 399, 20);
-  // 娉ㄥ唽鐢垫満
+  MG513_Init(&A_motor, PID_POSITION, 1.0f, 100.0f, 1.0f, 5.0f, 300.0f, 200.0f);
+  MG513_Init(&B_motor, PID_POSITION, -1.0f, 100.0f, 1.0f, 5.0f, 300.0f, 200.0f);
+
   Classic_init(&car, &A_motor, &B_motor, NULL, NULL);
 
   MG513_Motor_pwm_init();
 
-  // 瀹氭椂鍣ㄤ腑鏂垵濮嬪寲
-  HAL_TIM_Base_Start_IT(&htim6); // 鑾峰彇缂栫爜
-  HAL_TIM_Base_Start_IT(&htim7); // pid璁＄畻
+  HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_Base_Start_IT(&htim7);
+
+  // OLED_Init();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-    WIT_resolving(&wit);
+	  printf("%f/n",car.motorgroup[0]->pid1.wheel_speed);
+	  printf("%f/n",car.motorgroup[1]->pid1.wheel_speed);
+    // //    AX_PS2_ScanKey(&my_joystick); // PS2手柄数据获取
+    // ////    AX_Delayms(10);               // PS2的SPI模拟延时
+    // KEY_SCAN();
+    // HAL_Delay(10);
+    // switch (key)
+    // {
+    // case 0:
+    // {
+    //   OLED_ShowString(0, 0, "key=");
+    //   OLED_ShowNum(40, 0, key, 2, 16);
+    //   break;
+    // }
+    // case 1:
+    // {
+    //   OLED_ShowString(0, 0, "key=");
+    //   OLED_ShowNum(40, 0, key, 2, 16);
+    //   break;
+    // }
+    // case 2:
+    // {
+    //   OLED_ShowString(0, 0, "key=");
+    //   OLED_ShowNum(40, 0, key, 2, 16);
+    //   break;
+    // }
+    // }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -135,22 +177,22 @@ int main(void)
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-   */
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -158,15 +200,16 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 4;
   RCC_OscInitStruct.PLL.PLLN = 168;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -179,81 +222,45 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+void KEY_SCAN()
 {
-  if (htim == &htim6)
+  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_RESET)
   {
-    MG513_encodervalue_get(car.motorgroup[0]->cout, &htim2);
-    MG513_encodervalue_get(car.motorgroup[1]->cout, &htim3);
-  }
-  if (htim == &htim7)
-  {
-    // 璁＄畻
-    MG513_Calculate(&car.motorgroup[0]->pid1, car.motorgroup[0]->cout);
-    MG513_Calculate(&car.motorgroup[1]->pid1, car.motorgroup[1]->cout);
-    // 鍙戯拷??
-    pids *temp_pid[4] = {NULL};
-    for (int i = 0; i < 4; i++)
+    if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_RESET)
     {
-      temp_pid[i] = &car.motorgroup[i]->pid1;
+      HAL_Delay(10);
+      key++;
+      //      if (key > 6)
+      //        key = 0;
     }
-    MG513_pwm_send(temp_pid);
   }
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+void Grayscale_sensing_scan(Car *mg, GPIO_TypeDef *GPIO1, uint16_t GPIO_Pin1, GPIO_TypeDef *GPIO2, uint16_t GPIO_Pin2, GPIO_TypeDef *GPIO3,
+                            uint16_t GPIO_Pin3, GPIO_TypeDef *GPIO4, uint16_t GPIO_Pin4)
 {
-  if (huart == &huart2)
+  static uint8_t time = 0;
+  if (HAL_GPIO_ReadPin(GPIO1, GPIO_Pin1) == GPIO_PIN_SET || HAL_GPIO_ReadPin(GPIO2, GPIO_Pin2) == GPIO_PIN_SET ||
+      HAL_GPIO_ReadPin(GPIO3, GPIO_Pin3) == GPIO_PIN_SET || HAL_GPIO_ReadPin(GPIO4, GPIO_Pin4) == GPIO_PIN_SET)
   {
-    HAL_UART_Receive_DMA(&huart2, (uint8_t *)&email, sizeof(email));
-    for (int i = 0; i < sizeof(email); i++)
+    time++;
+    if (time % 2 != 0)
     {
-      if (email[i] == 0x50)
+      //
+      MG513_SET(&mg->motorgroup[0]->pid1, 1);
+      MG513_SET(&mg->motorgroup[1]->pid1, 1);
+    }
+    else
+    {
+      if (time % 4 == 0)
       {
-        if (email[i + 1] == 0x51)
-        {
-          if (email[i + 10] == email[i] + email[i + 1] + email[i + 2] + email[i + 3] + email[i + 4] +
-                                   email[i + 5] + email[i + 6] + email[i + 7] + email[i + 8] + email[i + 9])
-          {
-            for (uint8_t j = 0; j < 9; j++)
-            {
-              wit.Acceleration[i] = email[i + 2 + j];
-            }
-          }
-        }
-        else if (email[i + 1] == 0x52)
-        {
-          if (email[i + 10] == email[i] + email[i + 1] + email[i + 2] + email[i + 3] + email[i + 4] +
-                                   email[i + 5] + email[i + 6] + email[i + 7] + email[i + 8] + email[i + 9])
-          {
-            for (uint8_t j = 0; j < 9; j++)
-            {
-              wit.Angular_velocity[i] = email[i + 2 + j];
-            }
-          }
-          else if (email[i + 1] == 0x53)
-          {
-            if (email[i + 10] == email[i] + email[i + 1] + email[i + 2] + email[i + 3] + email[i + 4] +
-                                     email[i + 5] + email[i + 6] + email[i + 7] + email[i + 8] + email[i + 9])
-            {
-              for (uint8_t j = 0; j < 9; j++)
-              {
-                wit.Angle[i] = email[i + 2 + j];
-              }
-            }
-            else if (email[i + 1] == 0x59)
-            {
-              if (email[i + 10] == email[i] + email[i + 1] + email[i + 2] + email[i + 3] + email[i + 4] +
-                                       email[i + 5] + email[i + 6] + email[i + 7] + email[i + 8] + email[i + 9])
-              {
-                for (uint8_t j = 0; j < 9; j++)
-                {
-                  wit.Quaternion[i] = email[i + 2 + j];
-                }
-              }
-            }
-          }
-        }
+        MG513_SET(&mg->motorgroup[0]->pid1, 1.4);
+        MG513_SET(&mg->motorgroup[1]->pid1, 0.8);
+      }
+      else if (time % 4 == 2)
+      {
+        MG513_SET(&mg->motorgroup[0]->pid1, 0);
+        MG513_SET(&mg->motorgroup[1]->pid1, 0);
       }
     }
   }
@@ -261,9 +268,47 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM14 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+  if (htim == &htim6)
+  {
+    MG513_encodervalue_get(car.motorgroup[0]->cout, &htim2);
+    MG513_encodervalue_get(car.motorgroup[1]->cout, &htim3);
+  }
+  if (htim == &htim7)
+  {
+    // 底盘计算
+    MG513_Calculate(&car.motorgroup[0]->pid1, car.motorgroup[0]->cout);
+    MG513_Calculate(&car.motorgroup[1]->pid1, car.motorgroup[1]->cout);
+    //
+    pids *temp_pid[4] = {NULL};
+    for (int i = 0; i < 4; i++)
+    {
+      temp_pid[i] = &car.motorgroup[i]->pid1;
+    }
+    MG513_pwm_send(temp_pid);
+  }
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM14) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -275,14 +320,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

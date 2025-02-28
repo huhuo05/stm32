@@ -78,7 +78,7 @@ void MG513_encodervalue_get(float a[11], TIM_HandleTypeDef *_tim)
 /// @param cout
 void MG513_Calculate(pids *MOTOR_PID, float cout[11])
 {
-
+    MOTOR_PID->wheel_speed = (fp32)cout[10] * p * D / 4.0f / Redu_Ratio / Line_number / Ti;
     MOTOR_PID->out = PID_calc(MOTOR_PID, MOTOR_PID->wheel_speed, MOTOR_PID->set);
 }
 
@@ -125,4 +125,9 @@ void MG513_pwm_send(pids *MOTOR_PID[4])
         HAL_GPIO_WritePin(B2_GPIO_Port, B2_Pin, GPIO_PIN_RESET);
         __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, -MOTOR_PID[1]->out);
     }
+}
+
+void MG513_SET(pids *MOTOR_PID, float goal)
+{
+    MOTOR_PID->set = goal;
 }

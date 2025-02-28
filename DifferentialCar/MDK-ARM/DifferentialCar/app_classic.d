@@ -1,5 +1,5 @@
-differentialcar\app_classic.o: ..\Application\APP_classic.c
-differentialcar\app_classic.o: ..\Application\APP_classic.h
+differentialcar\app_classic.o: ..\User\APP_classic.c
+differentialcar\app_classic.o: ..\User\APP_classic.h
 differentialcar\app_classic.o: ../BSP/motor.h
 differentialcar\app_classic.o: ../Core/Inc/gpio.h
 differentialcar\app_classic.o: ../Core/Inc/main.h
@@ -31,10 +31,12 @@ differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal
 differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
-differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+differentialcar\app_classic.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 differentialcar\app_classic.o: ../Math_Algorithm/math.h
 differentialcar\app_classic.o: ../Math_Algorithm/pid.h
 differentialcar\app_classic.o: ../Math_Algorithm/struct_typedef.h

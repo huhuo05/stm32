@@ -2,7 +2,7 @@
 #ifndef __OLED_H
 #define __OLED_H
 #include "main.h"
-#include "spi.h"
+//#include "spi.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -26,6 +26,9 @@ typedef unsigned long u32;
 #define OLED_RES_GPIO_Port GPIOC
 #define OLED_DC_Pin GPIO_PIN_1
 #define OLED_DC_GPIO_Port GPIOC
+#define OLED_CS_Pin GPIO_PIN_3
+#define OLED_CS_GPIO_Port GPIOC
+
 
 //-----------------OLED¶Ë¿Ú¶¨Òå----------------
 #define OLED_SCLK_Clr() HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET) // CLK
@@ -56,7 +59,7 @@ void OLED_DrawPoint(u8 x, u8 y, u8 t);
 void OLED_Fill(u8 x1, u8 y1, u8 x2, u8 y2, u8 dot);
 void OLED_ShowChar(u8 x, u8 y, u8 chr);
 void OLED_ShowNum(u8 x, u8 y, u32 num, u8 len, u8 size);
-void OLED_ShowString(u8 x, u8 y, u8 *p);
+void OLED_ShowString(u8 x, u8 y, u8 *chr);
 void OLED_Set_Pos(unsigned char x, unsigned char y);
 void OLED_ShowCHinese(u8 x, u8 y, u8 no);
 void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char BMP[]);

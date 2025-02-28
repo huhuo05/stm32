@@ -1,12 +1,13 @@
 #include "main.h"
+#include "usart.h"
 
 #ifndef __WIT_h__
 #define __WIT_h__
 
 typedef struct WITDATA
 {
-    // 标志位
-    uint8_t Flag; // 0x00:无数据，0x01:有数据
+    uint8_t Flag;      // 标志位  0x00:无数据，0x01:有数据
+    uint8_t email[44]; // 邮箱
     // 原始数据
     uint8_t Time;                // 时间
     uint8_t Acceleration[8];     // 加速度
@@ -19,5 +20,10 @@ typedef struct WITDATA
 } WIT;
 
 void WIT_resolving(WIT *wit);
+void WIT_GET_value(WIT *wit);
+void WIT_Init(UART_HandleTypeDef *huartx);                     // 初始化(自动校准)
+void WIT_Acceleration_calibration(UART_HandleTypeDef *huartx); // 加速度校准
+void WIT_Angle_calibration(UART_HandleTypeDef *huartx);        // 角度校准
+void WIT_Z_calibration(UART_HandleTypeDef *huartx);            // Z轴校准
 
 #endif

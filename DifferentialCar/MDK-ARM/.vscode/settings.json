@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "motor.h": "c",
-        "app_classic.h": "c"
+        "app_classic.h": "c",
+        "grayscale_sensing.h": "c",
+        "task.h": "c"
     }
 }

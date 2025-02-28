@@ -3,7 +3,7 @@
 
 #include "main.h"
 #include "gpio.h"
-#include "spi.h"
+//#include "spi.h"
 
 typedef struct ps2_date
 {
@@ -69,7 +69,7 @@ extern uint16_t MASK[16];
 extern uint16_t Handkey;
 extern PS2 ps2;
 
-void PS2_Init(void);
+
 uint8_t PS2_RedLight(void);                         // 判断是否为红灯模式
 void PS2_ReadData(void);                            // 读手柄数据
 void PS2_Cmd(uint8_t CMD);                          // 向手柄发送命令
